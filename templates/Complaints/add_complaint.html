@@ -1,0 +1,147 @@
+{% extends 'base.html' %}
+{% load static %} 
+{% block content %}
+
+  <div class="container mt-4" id="addcomplaint">
+    <div class="row">
+      <div class="col-md-9">
+        <h2>Add a New Complain</h2>
+      </div>
+    </div>
+    <hr>
+    <nav
+      style="--bs-breadcrumb-divider: url(&#34;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M2.5 0L1 1.5 3.5 4 1 6.5 2.5 8l4-4-4-4z' fill='currentColor'/%3E%3C/svg%3E&#34;);"
+      aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="{% url 'Complaints'%}">Complaints</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Add Complaints</li>
+      </ol>
+    </nav>
+
+    <form action="{% url 'add-complaints' %}" method="post">
+      {% include 'partials/_messages.html'%} {% csrf_token %}
+
+      <div class="d-grid gap-3 d-md-flex justify-content-md-end">
+        <input type="submit" value="Submit" class="btn bg-dark text-white btn-lg" />
+      </div>
+      <br>
+      <div class="card border border-dark">
+        <div class="card-body">
+
+
+          {% comment %} {% endcomment %}
+          <label for="basic-url" class="form-label">Complaint Against</label>
+          <div class="input-group mb-3">
+            <span class="input-group-text" id="basic-addon1"><svg xmlns="http://www.w3.org/2000/svg" width="16"
+                height="16" fill="dark" class="bi bi-clipboard-minus" viewBox="0 0 16 16">
+                <path fill-rule="evenodd" d="M5.5 9.5A.5.5 0 0 1 6 9h4a.5.5 0 0 1 0 1H6a.5.5 0 0 1-.5-.5z" />
+                <path
+                  d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1h1a1 1 0 0 1 1 1V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1h1v-1z" />
+                <path
+                  d="M9.5 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3zm-3-1A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3z" />
+              </svg></span>
+            <input type="text" class="form-control form-control-sm" name="against" placeholder="Name"
+              value="{{values.against}}" />
+          </div>
+
+          <label for="basic-url" class="form-label">Link related the Complaint</label>
+          <div class="input-group mb-3">
+            <span class="input-group-text" id="basic-addon3">URL/ID</span>
+            <input type="text" class="form-control" id="basic-url" aria-describedby="basic-addon3">
+          </div>
+          <label for="basic-url" class="form-label">Category</label>
+          <div class="input-group mb-3">
+            <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
+              aria-expanded="false"></button>
+            <select class="form-control" name="category">
+              {% for category in categories%}
+              <option name="category" value="{{category.name}}">{{category.name}}</option>
+
+              {% endfor %}
+            </select>
+          </div>
+          <label for="basic-url" class="form-label">Description</label>
+          <div class="input-group mb-3">
+            <span class="input-group-text"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
+                <path
+                  d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z" />
+                <path fill-rule="evenodd"
+                  d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z" />
+              </svg></span>
+            <input type="text" class="form-control form-control-sm" name="description" value="{{values.description}}"
+              aria-label="With textarea"></input>
+              
+          </div>
+
+          <div class="input-group mb-3">
+            <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
+              aria-expanded="false">State</button>
+            <select class="form-control" name="state">
+              {% for state in states%}
+              <option name="state" value="{{state.name}}">{{state.name}}- {{state.value}}</option>
+
+              {% endfor %}
+            </select>
+          </div>
+          <label for="basic-url" class="form-label">Date of the complaint happend</label>
+          <div class="input-group mb-3">
+            <span class="input-group-text"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                fill="currentColor" class="bi bi-calendar2-week" viewBox="0 0 16 16">
+                <path
+                  d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM2 2a1 1 0 0 0-1 1v11a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V3a1 1 0 0 0-1-1H2z" />
+                <path
+                  d="M2.5 4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5H3a.5.5 0 0 1-.5-.5V4zM11 7.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm-3 0a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm-5 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm3 0a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1z" />
+              </svg></span>
+
+            <input type="date" class="form-control form-control-sm" name="complaint_date" /> {% comment %} <input
+              type="text" class="form-control" placeholder="Server" aria-label="Server"> {% endcomment %}
+          </div>
+          {% comment %} {% endcomment %}
+
+          {% comment %} {% include 'partials/_messages.html'%} {% csrf_token %}
+          <div class="form-group">
+            <label for="">Complaint Against</label>
+            <input type="text" class="form-control form-control-sm" name="against" value="{{values.against}}" />
+          </div>
+          <div class="form-group">
+            <label for="">Description</label>
+            <input type="text" class="form-control form-control-sm" name="description" value="{{values.description}}" />
+          </div>
+          <div class="form-group">
+            <label for="">Category</label>
+            <select class="form-control" name="category">
+              {% for category in categories%}
+              <option name="category" value="{{category.name}}">{{category.name}}</option>
+
+              {% endfor %}
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="">State</label>
+            <select class="form-control" name="state">
+              {% for state in states%}
+              <option name="state" value="{{state.name}}">{{state.name}}- {{state.value}}</option>
+
+              {% endfor %}
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="">Date of Complaint</label>
+            <input type="date" class="form-control form-control-sm" name="complaint_date" />
+          </div> {% endcomment %}
+        </div>
+      </div>
+    </form>
+  </div>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+
+  {% comment %} <script src="{% static 'js/addcomplaint.js' %}"></script> {% endcomment %}
+
+  {% endblock %}

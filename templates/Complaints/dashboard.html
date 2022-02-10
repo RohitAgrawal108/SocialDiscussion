@@ -1,0 +1,132 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<div class="container-fluid p-0">
+<div
+  class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 px-3 mb-3 border-bottom">
+  <h1 class="h2">Dashboard</h1>
+  <div class="btn-toolbar mb-2 mb-md-0">
+    {% comment %} <div class="btn-group me-2">
+      <button type="button" class="btn btn-sm btn-outline-secondary">Share</button>
+      <button type="button" class="btn btn-sm btn-outline-secondary">Export</button>
+    </div> {% endcomment %}
+    {% comment %} <button type="button" class="btn btn-sm btn-outline-secondary dropdown-toggle">
+      <span data-feather="calendar"></span>
+      Chart
+    </button> {% endcomment %}
+  </div>
+</div>
+
+<canvas class="my-4 w-100" id="myChart" width="900" height="650"></canvas>
+<hr>
+<div class="px-4">
+<h2>Section title</h2>
+</div>
+<br>
+<div class="container-fluid">
+  {% include 'partials/_messages.html' %} {% if complaints.count %}
+
+  <div class="row">
+    <div class="col-md-4 ">
+
+      <div class="form-group">
+        <div class="input-group flex-nowrap">
+          <span class="input-group-text bg-dark text-white"><svg xmlns="http://www.w3.org/2000/svg" width="16"
+              height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+              <path
+                d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
+            </svg></span>
+          <input type="text" class="form-control bg-dark text-white" id="searchField" placeholder="Search">
+        </div>
+        <br>
+      </div>
+    </div>
+  </div>
+  </div>
+<div class="container">
+  <div class="app-table">
+
+    <table class="table table-stripped table-hover">
+      <thead>
+        <tr>
+          <th>Complaint Against</th>
+          <th>Category</th>
+          <th>Description</th>
+          <th>Date</th>
+          <th></th>
+        </tr>
+      </thead>
+
+      <tbody>
+        {% for complaint in page_obj%}
+        <tr>
+          <td>{{complaint.against}}</td>
+          <td>{{complaint.category}}</td>
+          <td>{{complaint.description}}</td>
+          <td>{{complaint.date}}</td>
+        </tr>
+
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+
+  <p class="no-results" style="display: none;">No results </p>
+  <div class="table-output">
+
+
+    <table class="table table-stripped table-hover">
+      <thead>
+        <tr>
+          <th>Complaint Against</th>
+          <th>Category</th>
+          <th>Description</th>
+          <th>Date</th>
+          <th></th>
+        </tr>
+      </thead>
+
+      <tbody class="table-body">
+
+
+      </tbody>
+
+    </table>
+  </div>
+
+  <div class="pagination-container">
+    <div class="">
+      Showing page {{page_obj.number}} of {{ page_obj.paginator.num_pages }}
+    </div>
+    <ul class="pagination align-right float-right mr-auto">
+      {% if page_obj.has_previous %}
+      <li class="page-item active"><a class="page-link" href="?page=1">&laquo;
+          1</a></li>
+      <li class="page-item"> <a class="page-link" href="?page={{ page_obj.previous_page_number }}">Previous</a></li>
+      {% endif %}
+
+      {% if page_obj.has_next %}
+      <li class="page-item"> <a class="page-link" href="?page={{ page_obj.next_page_number }}">Next</a></li>
+      <li class="page-item"> <a class="page-link" href="?page={{ page_obj.paginator.num_pages }}">{{page_obj.paginator.num_pages}} &raquo;</a></li>
+      {% endif %}
+
+
+    </ul>
+    {% endif %}
+  </div>
+</div>
+</div>
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+</div>
+<script src="{% static 'js/dashboard.js' %}"></script>
+<script src="{% static 'js/listdashboard.js' %}"></script>
+{% endblock %}

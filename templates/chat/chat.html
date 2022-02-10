@@ -1,0 +1,153 @@
+{% extends 'ChatBase.html' %}
+
+{% block content %}
+<style>
+    a.nav-link {
+        color: gray;
+        font-size: 18px;
+        padding: 0;
+    }
+
+    .avatar {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        border: 2px solid #e84118;
+        padding: 2px;
+        flex: none;
+    }
+
+    input:focus {
+        outline: 0px !important;
+        box-shadow: none !important;
+    }
+
+    .card-text {
+        border: 2px solid #ddd;
+        border-radius: 8px;
+    }
+</style>
+
+{% comment %} {% endcomment %}
+<div class="message-area px-1 pt-3">
+    <div id= "message_scroll_id"class="message-table-scroll px-0">
+        <table class="table" id="myTable">
+            <tbody id="message-list">
+                {% for message in messages %}
+                <tr class="allign_side" >
+                    <td>
+                        <p class="bg-primary p-2 mt-2 mr-5 shadow-sm text-white float-left rounded">
+                            [{{message.sender.username}}]::!:: <br>{{message.text}}</p>
+                    </td>
+
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <div class="message-box px-3">
+
+        <form class="px-1 py-0 input-group" id="message-form" action="">
+            {% csrf_token %}
+            <input type="text" name="message"class="border border-3" style = "width: 80%;" id="message" required placeholder="Write message...">
+            <input type="submit" value="Send" class="btn btn-outline-secondary" id="button-addon2">
+        </form>
+
+
+    </div>
+</div>
+{% comment %} {% endcomment %}
+{% comment %} <h3>You: {{me.username}}</h3>
+<h3>Thread: {{user.username}}</h3>
+<ul id="message-list">
+    {% for message in messages %}
+    <li>[{{message.sender.username}}]: {{message.text}}</li>
+    {% endfor %}
+</ul>
+<form id="message-form">
+    {% csrf_token %}
+    <input type="text" name="message" id="message" required>
+    <input type="submit" value="Send" class="btn">
+</form> {% endcomment %}
+{% endblock content %}
+
+
+{% block custom_javascript %}
+
+<script>
+
+
+    {% comment %} window.scrollTo(0,document.querySelector(".table").scrollHeight); {% endcomment %}
+
+
+    
+    function gotoBottom(id){
+        var element = document.getElementById(id);
+        element.scrollTop = element.scrollHeight - element.clientHeight;
+     }
+
+     gotoBottom("message_scroll_id");
+
+
+
+    for (const coll of document.getElementsByClassName("allign_side")) {
+        if (coll.innerText.split("::!::")[0] == "[{{me.username}}]") {
+            let var_text = coll.innerText.split("::!::");
+            coll.innerHTML = `<td><p class="bg-secondary p-2 mt-2 mr-5 shadow-sm text-white float-right rounded">${var_text[0]} <br> ${var_text[1]}</p></td>`;
+        }
+        else {
+            let var_text = coll.innerText.split("::!::");
+            coll.innerHTML = `<td class="px-5"><p class="bg-light rounded p-2 mt-2 mr-5 shadow-sm text-dark float-left">${var_text[0]} <br> ${var_text[1]}</p></td>`;
+        }
+    }
+
+
+
+</script>
+
+<script>
+    const url = 'ws://127.0.0.1:8000/ws' + window.location.pathname;
+    const ws = new WebSocket(url)
+    ws.onopen = function (event) {
+        console.log("Connection is opened");
+    }
+    ws.onmessage = function (event) {
+        console.log(event);
+        console.log("Message is received");
+        var data = JSON.parse(event.data);
+        var tbodyRef = document.getElementById('myTable').getElementsByTagName('tbody')[0];
+
+        var newRow = tbodyRef.insertRow();
+        if (data.username == "{{me.username}}") {
+        newRow.innerHTML = `<td>
+            <p class="bg-secondary p-2 mt-2 mr-5 shadow-sm text-white float-right rounded">
+                [${data.username}] <br> ${data.text}</p>
+        </td>`
+    }
+    else{
+        newRow.innerHTML = `<td>
+            <p class="bg-light rounded p-2 mt-2 mr-5 shadow-sm text-dark float-left">
+                [${data.username}] <br> ${data.text}</p>
+        </td>`
+    }
+    gotoBottom("message_scroll_id");
+    }
+
+    ws.onclose = function (event) {
+        console.log("Connection is closed");
+    }
+
+    ws.onerror = function (event) {
+        console.log("Something went wrong");
+    }
+
+    const messageForm = document.getElementById('message-form')
+    messageForm.addEventListener('submit', sendMessage)
+    function sendMessage(e) {
+        if (e.preventDefault) e.preventDefault();
+        ws.send(document.getElementById('message').value);
+        messageForm.reset()
+        return false;
+    }
+</script>
+{% endblock custom_javascript %}

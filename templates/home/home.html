@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="" />
+    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors" />
+    <meta name="generator" content="Hugo 0.88.1" />
+    <title>Headers · Bootstrap v5.1</title>
+
+    <link rel="canonical" href="https://getbootstrap.com/docs/5.1/examples/headers/" />
+
+    <!-- Bootstrap core CSS -->
+    <link href="{% static "css/bootstrap.min.css"%}" rel="stylesheet" />
+
+    <style>
+        .bd-placeholder-img {
+            font-size: 1.125rem;
+            text-anchor: middle;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            user-select: none;
+        }
+
+        @media (min-width: 768px) {
+            .bd-placeholder-img-lg {
+                font-size: 3.5rem;
+            }
+        }
+    </style>
+
+    <!-- Custom styles for this template -->
+    <link href="{% static "headers.css"%}" rel="stylesheet" />
+</head>
+
+<body class="bg-dark">
+    <main>
+        {% comment %} <div class="container"> {% endcomment %}
+            <header class="
+            d-flex
+            flex-wrap
+            align-items-center
+            justify-content-center justify-content-md-between
+            py-3
+            mb-4
+            border-bottom
+          ">
+          <a class="navbar-brand px-5 text-light" href="#">SocialDiscussion</a>
+                {% comment %} <h5 class="text-light px-5">SocialDiscussion</h5> {% endcomment %}
+
+                <ul class="nav col-12 col-md-auto mb-2 text-white mb-md-0">
+                    {% comment %} <li><a href="#" class="nav-link px-5 link-light">Home</a></li>
+                    <li><a href="#" class="nav-link px-3 link-light">About</a></li> {% endcomment %}
+                </ul>
+
+                <div class="col-md-3 px-5 text-end">
+                    <button type="button" class="btn border-light me-2">
+                        <a href="Complaints/" class="nav-link px-2 link-light">Login</a>
+                    </button>
+                    <button type="button" class="btn bg-warning"><a href="/Authentication/register" class="nav-link px-2 link-dark">SignUp</a></button>
+                </div>
+            </header>
+        {% comment %} </div> {% endcomment %}
+        <br>
+        <br>
+        <br>
+        <br>
+        <div>
+
+            <h1 class="text-light text-center">SocialDiscussion</h1>
+        </div>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        
+        {% comment %} <div class="container"> {% endcomment %}
+        <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-indicators">
+              <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+              <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+              <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+            </div>
+            <div class="carousel-inner">
+              <div class="carousel-item active">
+                <img src="{% static 'img/indianflag.jpeg'%}" class="d-block w-100" alt="...">
+              </div>
+              <div class="carousel-item">
+                <img src="{% static 'img/shell1.jpg'%}" class="d-block w-100" alt="...">
+              </div>
+              <div class="carousel-item">
+                <img src="{% static 'img/order.jpeg'%}" class="d-block w-100" alt="...">
+              </div>
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Next</span>
+            </button>
+          </div>
+          {% comment %} </div> {% endcomment %}
+          <br>
+          <br>
+          <br>
+          <br>
+          {% comment %} <div class="container"> {% endcomment %}
+              <br>
+              <br>
+              <br>
+              <br>
+              <br>
+            <div class="container">
+            <div class="card text-center">
+              <div class="card-header">
+                About
+              </div>
+              <div class="row g-0 bg-light position-relative">
+                <div class="col-md-6 mb-md-0 p-md-4">
+                  <img src="{% static 'img/vitimg.png' %}" style="width: 18rem;" alt="VIT PUNE">
+                </div>
+                <div class="col-md-6 p-4 ps-md-0">
+                  <br><br>
+                  <br>
+                  <h5 class="mt-0">Student Of Vit Pune</h5>
+                  <p>This website is created by VIT Pune student as a part of there project</p>
+                  <p>This website is SocialDiscussion website</p>
+                  <a href="#" class="btn btn-dark stretched-link">VIT Pune</a>
+                </div>
+              </div>
+              <div class="card-footer text-muted">
+                VIT Pune
+              </div>
+            </div>
+        </div>
+          {% comment %} </div> {% endcomment %}
+          <br>
+          <br>
+          <br>
+    </main>
+    <script src="{% static 'js/bootstrap.bundle.min.js'%}"></script>
+</body>
+
+</html>
