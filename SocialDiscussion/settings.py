@@ -6,7 +6,7 @@ import os
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-SECRET_KEY = 'django-insecure-_+2s@!(31c&h1(qrjb4k@u#m12t&60(dd@vvt7d20m6ex0@%4g'
+SECRET_KEY = 'secreat_key'
 
 DEBUG = True
 
@@ -66,9 +66,9 @@ ASGI_APPLICATION = 'SocialDiscussion.routing.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': "SocialDiscussion",
+        'NAME': "name",
         'USER': "postgres",
-        'PASSWORD': "123zxcvbnm",
+        'PASSWORD': "password",
         'HOST': "localhost"
     }
 }
@@ -134,10 +134,3 @@ CHANNEL_LAYERS = {
     },
 }
 
-# email stuff
-EMAIL_HOST = "smtp.gmail.com"#config("EMAIL_HOST"),#os.environ.get('EMAIL_HOST')
-EMAIL_HOST_USER = "rohit786agrawal786@gmail.com"#config("EMAIL_HOST_USER"),#os.environ.get('EMAIL_HOST_USER')
-EMAIL_USE_TLS = True
-DEFAULT_FROM_EMAIL = "rohit786agrawal786@gmail.com"#config("DEFAULT_FROM_EMAIL"),#os.environ.get('DEFAULT_FROM_EMAIL')
-EMAIL_PORT = 587
-EMAIL_HOST_PASSWORD = "rohit786786"#config("EMAIL_HOST_PASSWORD"),#os.environ.get('EMAIL_HOST_PASSWORD')
